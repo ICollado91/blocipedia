@@ -47,7 +47,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  config.action_mailer.default_url_options = { host: 'http://bloc-foundation-icollado91.c9users.io:8080/', port: 8080 }
+  config.action_mailer.default_url_options = { host: 'http://0.0.0.0:8080', port: 8080 }
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.

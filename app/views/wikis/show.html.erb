@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @wiki.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @wiki.body %>
+</p>
+
+<p>
+  <strong>Private:</strong>
+  <%= @wiki.private %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @wiki.user.email %>
+</p>
+
+<%= link_to 'Edit', edit_wiki_path(@wiki) %> |
+<%= link_to 'Back', wikis_path %>

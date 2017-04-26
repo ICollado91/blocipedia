@@ -20,7 +20,7 @@
   <%= @wiki.user.email %>
 </p>
 
-<% if current_user.can_edit?(@wiki) %>
+<% if policy(@wiki).update? %>
   <%= link_to 'Edit', edit_wiki_path(@wiki), :class => "btn btn-success btn-sm" %> |
 <% end %>
 <%= link_to 'Back', wikis_path, :class => "btn btn-default btn-sm" %>

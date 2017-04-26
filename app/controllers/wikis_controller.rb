@@ -25,6 +25,7 @@ class WikisController < ApplicationController
   # POST /wikis.json
   def create
     @wiki = current_user.wikis.new(wiki_params)
+    
 
     respond_to do |format|
       if @wiki.save
@@ -40,6 +41,7 @@ class WikisController < ApplicationController
   # PATCH/PUT /wikis/1
   # PATCH/PUT /wikis/1.json
   def update
+    authorize @wiki
     respond_to do |format|
       if @wiki.update(wiki_params)
         format.html { redirect_to @wiki, notice: 'Wiki was successfully updated.' }
@@ -54,6 +56,7 @@ class WikisController < ApplicationController
   # DELETE /wikis/1
   # DELETE /wikis/1.json
   def destroy
+    authorize @wiki
     @wiki.destroy
     respond_to do |format|
       format.html { redirect_to wikis_url, notice: 'Wiki was successfully destroyed.' }

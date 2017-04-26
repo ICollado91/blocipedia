@@ -17,15 +17,15 @@
       <tr>
         <td><%= link_to wiki.title, wiki %></td>
         <td><%= link_to wiki.body, wiki %></td>
-        <td><%= wiki.user.email %></td>
+        <td><%= wiki.user.username %></td>
         <td>
-          <% if current_user.can_edit?(wiki) %>
+          <% if policy(wiki).update? %>
             <%= link_to 'Edit', edit_wiki_path(wiki), :class => "btn btn-success btn-sm" %>
           <% end %>
         </td>
         <td>
-          <% if current_user.can_destroy?(wiki) %>
-            <%= link_to 'Destroy', wiki, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-sm" %>
+          <% if policy(wiki).destroy? %>
+            <%= link_to 'Delete', wiki, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-sm" %>
           <% end %>
         </td>
       </tr>

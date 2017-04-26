@@ -8,8 +8,9 @@
 arr = []
 50.times do
     User.create!(
+        username: Faker::Internet.user_name(5..10),
         email: Faker::Internet.unique.email,
-        password: Faker::Address.city
+        password: Faker::Internet.password
     )
     arr.push(User.last)
 end

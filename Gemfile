@@ -36,6 +36,7 @@ gem 'bootstrap-sass'
 gem 'figaro'
 gem 'devise'
 gem 'rails-controller-testing'
+gem "pundit"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

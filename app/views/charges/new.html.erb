@@ -1,4 +1,16 @@
-<%= form_tag charges_path do %>
-    <h4>Upgrade your role to Premium for just $15.00</h4>
-    <script class='stripe-button' src="https://checkout.stripe.com/checkout.js" data-key="<%= @stripe_btn_data[:key] %>" data-amount="<%= @stripe_btn_data[:amount] %>" data-description="<%= @stripe_btn_data[:description] %>" ></script>
+<% if current_user.standard? %>
+    <%= form_tag charges_path do %>
+        <h4>Upgrade your role to Premium for just $15.00</h4>
+        <script class='stripe-button' src="https://checkout.stripe.com/checkout.js" data-key="<%= @stripe_btn_data[:key] %>" data-amount="<%= @stripe_btn_data[:amount] %>" data-description="<%= @stripe_btn_data[:description] %>" ></script>
+    <% end %>
+<% elsif current_user.premium? %>
+    <h4>Downgrade your role to Standard!</h4>
+    <p class="alert alert-danger">Warning: Downgrading your role will make all your private wiki's public.</p>
+    <p>Private Wikis:</p>
+    <% current_user.wikis.each do |wiki| %>
+        <h4><%= wiki.title unless !wiki.private %></h4>
+    <% end %>
+    <%= button_to "Downgrade your account to Standard!", users_update_path, method: :update, data: { confirm: 'Are you sure? All your private wikis will be public!' }, class: "btn btn-danger" %>
+<% elsif current_user.admin? %>
+    <h4>Welcome Administartor! You're status will remain in tact!</h4>
 <% end %>

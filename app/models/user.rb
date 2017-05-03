@@ -6,7 +6,7 @@ class User < ApplicationRecord
     :standard => 2
   }
   
-  attr_accessor(:role, :login)
+  attr_accessor(:login)
   
   has_many :wikis, dependent: :destroy
   after_initialize :init
@@ -42,8 +42,18 @@ class User < ApplicationRecord
     true if self.role_name == :premium
   end
   
+  def standard?
+    true if self.role_name == :standard
+  end
+  
   def set_to_premium
     self.role = USER_ROLES[:premium]
+    self.save!
+  end
+  
+  def set_to_standard
+    self.role = USER_ROLES[:standard]
+    self.save!
   end
   
   def self.find_for_database_authentication(warden_conditions)

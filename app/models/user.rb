@@ -1,10 +1,16 @@
 class User < ApplicationRecord
   
+  USER_ROLES = {
+    :admin => 0,
+    :premium => 1,
+    :standard => 2
+  }
+  
   attr_accessor(:role, :login)
   
   has_many :wikis, dependent: :destroy
-  
   after_initialize :init
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -14,22 +20,10 @@ class User < ApplicationRecord
   validates :username, :presence => true, :uniqueness => { :case_sensitive => false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   
-  USER_ROLES = {
-    :admin => 0,
-    :premium => 1,
-    :standard => 2
-  }
+  
   
   def init
     self.role ||= USER_ROLES[:standard]
-  end
-  
-  def set_as_admin
-    self.role = USER_ROLES[:admin]
-  end
-  
-  def set_as_premium
-    self.role = USER_ROLES[:premium]
   end
   
   def role_name
@@ -42,6 +36,10 @@ class User < ApplicationRecord
   
   def admin?
     true if self.role_name == :admin
+  end
+  
+  def premium?
+    true if self.role_name == :premium
   end
   
   def self.find_for_database_authentication(warden_conditions)

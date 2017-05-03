@@ -37,7 +37,7 @@ gem 'figaro'
 gem 'devise'
 gem 'rails-controller-testing'
 gem "pundit"
-
+gem 'stripe'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

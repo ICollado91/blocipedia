@@ -35,11 +35,15 @@ class User < ApplicationRecord
   end
   
   def admin?
-    true if self.role_name == :admin
+    self.role_name == :admin
   end
   
   def premium?
     true if self.role_name == :premium
+  end
+  
+  def set_to_premium
+    self.role = USER_ROLES[:premium]
   end
   
   def self.find_for_database_authentication(warden_conditions)

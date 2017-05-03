@@ -35,6 +35,13 @@
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
+  
+  <div class="field">
+    <%= f.label :role %> <br />
+    <%= f.check_box :role %> <br />
+    <%= f.select :role, options_for_select(User.user_roles), {} %>
+  </div>
+  
 
   <div class="actions">
     <%= f.submit "Update" %>

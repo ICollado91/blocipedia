@@ -18,7 +18,7 @@
         <%= render 'layouts/login' %>
       </ul>
       <% if user_signed_in? %>
-        <p class="pull-right">Signed in as: <strong><%= link_to current_user.username, users_show_path %></strong></p>
+        <p class="pull-right">Signed in as: <strong><%= link_to current_user.username, users_show_path %></strong> Current Role: <strong><%= link_to current_user.role_name.capitalize, charges_new_path %></strong></p>
       <% end %>
       <%= yield %>
     </div>

@@ -21,10 +21,13 @@
     <%= f.text_area :body %>
   </div>
 
-  <div class="field">
-    <%= f.label :private %>
-    <%= f.check_box :private %>
-  </div>
+  <% if current_user.admin? || current_user.premium? %>
+    <div class="form-group">
+      <%= f.label :private, class: 'checkbox' do %>
+        <%= f.check_box :private %> Private wiki
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= f.label :user_id %>

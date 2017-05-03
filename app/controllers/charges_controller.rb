@@ -9,7 +9,7 @@ class ChargesController < ApplicationController
   def new
     @stripe_btn_data = {
       key: "#{ Rails.configuration.stripe[:publishable_key] }",
-      description: "BigMoney Membership - #{current_user.name}",
+      description: "Premium Membership - #{current_user.username}",
       amount: Amount.default
     }
   end
@@ -26,11 +26,12 @@ class ChargesController < ApplicationController
     charge = Stripe::Charge.create(
       customer: customer.id,
       amount: Amount.default,
-      description: "Premium Membership - #{current_user.email}",
+      description: "Premium Membership - #{current_user.username}",
       currency: 'usd'
     )
     
-    current_user.update_attribute(:role, 1)
+    current_user.set_to_premium
+    current_user.save!
     flash[:notice] = "You are a now a #{current_user.role_name.capitalize} member! Congratulations!"
     render users_show_path
 

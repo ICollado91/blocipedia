@@ -38,6 +38,7 @@ gem 'devise'
 gem 'rails-controller-testing'
 gem "pundit"
 gem 'stripe'
+gem 'redcarpet'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

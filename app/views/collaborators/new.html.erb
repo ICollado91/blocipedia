@@ -1,0 +1,33 @@
+<h1>Add a New Collaborator!</h1>
+
+<%= form_for [@wiki] do |f| %>
+    <% if @wiki.errors.any? %>
+        <h4>There are <%= pluralize(@wiki.errors.count, "error") %>!</h4>
+        <ul>
+            <% @wiki.errors.full_messages.each do |err| %>
+                <li><%= err %></li>
+            <% end %>
+        </ul>
+    <% end %>
+    
+    <%= collection_check_boxes(:wiki, :user_ids, User.all, :id, :email) do |u| %>
+        <div class="checkbox">
+            <%= u.label do %>
+                <%= u.check_box %>
+                <%= u.object.email %>
+            <% end %>
+        </div>
+        <% end %>
+    <div class="field">
+        <%= f.label "Select Collaborators for this Wiki" %><br />
+        <%= collection_check_boxes(:wiki, :user_ids, User.all - [f.object.user], :id, :email) do |b| %>
+          <div class="collection-check-box">
+            <%= b.check_box %>
+            <%= b.object.username.capitalize %>
+          </div>
+        <% end %>
+    </div>
+    <div class="form-group">
+        <%= f.submit "Collaborate!",  class: 'btn btn-info' %>
+    </div>
+<% end %>

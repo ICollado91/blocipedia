@@ -1,24 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Wikis</h1>
+<h1>Wikis <%= link_to 'New Wiki', new_wiki_path, :class => "btn btn-primary" %></h1>
 
 <table style="width:100%">
   <thead>
     <tr>
       <th>Title</th>
       <th>Body</th>
-      <th>User</th>
+      <th>Author</th>
       <th colspan="5"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @wikis.each do |wiki| %>
-      <% if !wiki.private || current_user.admin? || current_user.premium? %>
+      <% if !wiki.private || current_user.admin? || current_user.premium? || wiki.author == current_user.username || wiki.collaborators.include?(current_user) %>
         <tr>
           <td><%= link_to wiki.title, wiki %></td>
           <td><%= link_to markdown(wiki.body), wiki %></td>
-          <td><%= wiki.user.username %></td>
+          <td><%= wiki.author %></td>
           <td>
             <% if policy(wiki).update? %>
               <%= link_to 'Edit', edit_wiki_path(wiki), :class => "btn btn-success btn-sm" %>
@@ -37,4 +37,4 @@
 
 <br>
 
-<%= link_to 'New Wiki', new_wiki_path, :class => "btn btn-primary" %>
+

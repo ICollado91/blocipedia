@@ -4,7 +4,7 @@ class WikisController < ApplicationController
   # GET /wikis
   # GET /wikis.json
   def index
-    @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)
   end
 
   # GET /wikis/1
@@ -25,7 +25,7 @@ class WikisController < ApplicationController
   # POST /wikis.json
   def create
     @wiki = current_user.wikis.new(wiki_params)
-    
+    @wiki.update_attribute(:author, current_user.username)
 
     respond_to do |format|
       if @wiki.save

@@ -10,17 +10,21 @@ arr = []
     User.create!(
         username: Faker::Internet.user_name(5..10),
         email: Faker::Internet.unique.email,
-        password: Faker::Internet.password
+        password: Faker::Internet.password,
+        role: 2
     )
     arr.push(User.last)
 end
 
 100.times do
+    current_writer_id = arr.sample.id
+    current_writer_name = arr.sample.username
     Wiki.create!(
         title: Faker::Hipster.unique.sentence,
         body: Faker::Hipster.paragraph,
         private: false,
-        user_id: arr.sample.id
+        user_id: current_writer_id,
+        author: current_writer_name
     )
 end
 

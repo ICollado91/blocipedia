@@ -12,26 +12,36 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.label :title %><br />
+    <%= f.text_field :title, size: "99" %>
   </div>
 
   <div class="field">
-    <%= f.label :body %>
-    <%= f.text_area :body %>
+    <%= f.label :body %><br />
+    <%= f.text_area :body, size: "100x10" %>
   </div>
 
   <% if current_user.admin? || current_user.premium? %>
-    <div class="form-group">
-      <%= f.label :private, class: 'checkbox' do %>
-        <%= f.check_box :private %> Private wiki
+    <div class="field">
+      <%= f.label :private, class: 'checkbox toTheRight' do %>
+        <%= f.check_box :private %> Make this Wiki Private <br />
       <% end %>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %>
-    <%= current_user.email %>
+    <%= f.label :user_id %>: <%= current_user.email %>
+  </div>
+  
+  <div class="field">
+    <%= f.label "Select Collaborators for this Wiki" %><br />
+    <%= f.collection_check_boxes :collaborators, User.all, :id, :name do |b| %>
+      <div class="collection-check-box">
+        <%= b.label { b.check_box + b.object.username } %>
+        <%#= b.check_box %>
+        <%#= b.object.username %>
+      </div>
+    <% end %>
   </div>
 
   <div class="actions">

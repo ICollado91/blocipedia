@@ -4,13 +4,15 @@
         <div class="media">
             <div class="media-body">
                 </br>
-                <h2 class="media-heading"><%= current_user.username %></h2>
+                <h2 class="media-heading"><%= current_user.username %>'s Wikis:</h2>
                 <small>
-                    <%= pluralize(current_user.wikis.count, 'wiki') %>
+                    <% Wiki.all.each do |wiki| %>
+                        <% if wiki.author == current_user.username %>
+                            <li><%= link_to wiki.title, wiki %></li>
+                        <% end %>
+                    <% end %>
                 </small>
             </div>
         </div>
     </div>
 </div>
-
-<h2>Current Account Status: <%= current_user.role_name.capitalize %></h2>

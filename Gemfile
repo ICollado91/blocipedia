@@ -39,6 +39,7 @@ gem 'rails-controller-testing'
 gem "pundit"
 gem 'stripe'
 gem 'redcarpet'
+gem 'bootstrap-toggle-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -34,7 +34,7 @@ class WikiPolicy < ApplicationPolicy
             wikis << wiki # if the user is premium, only show them public wikis, or that private wikis they created, or private wikis they are a collaborator on
           end
         end
-      else # this is the lowly standard user
+      else # this is the standard user
         all_wikis = scope.all
         wikis = []
         all_wikis.each do |wiki|

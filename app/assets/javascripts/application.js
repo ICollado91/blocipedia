@@ -15,4 +15,13 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+console.log( markdown.toHTML( "Hello *World*!" ) );
 
+$(document).ready(function(){
+    $('#wiki_title').keyup(function(){
+        $('#markdown_title').html(markdown.toHTML(this.value))
+    });
+    $('#wiki_body').keyup(function(){
+        $('#markdown_title').html(markdown.toHTML(this.value))
+    });
+});

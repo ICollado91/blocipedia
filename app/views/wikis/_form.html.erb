@@ -21,6 +21,9 @@
     <%= f.text_area :body, size: "100x10" %>
   </div>
 
+  <div id="markdown_title"></div>
+  <div id="markdown_body"></div>
+
   <% if current_user.admin? || current_user.premium? %>
     <div class="field">
       <%= f.label :private, class: 'checkbox toTheRight' do %>
@@ -35,7 +38,7 @@
   
   <div class="field">
     <%= f.label "Select Collaborators for this Wiki" %><br />
-    <%= f.collection_check_boxes :collaborators, User.all, :id, :name do |b| %>
+    <%= f.collection_check_boxes :collaborators, User.all.select{ |m| m != current_user}, :id, :username do |b| %>
       <div class="collection-check-box">
         <%= b.label { b.check_box + b.object.username } %>
         <%#= b.check_box %>

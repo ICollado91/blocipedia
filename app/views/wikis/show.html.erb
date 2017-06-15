@@ -2,7 +2,7 @@
 
 <p>
   <strong>Title:</strong>
-  <%= @wiki.title %>
+  <%= markdown(@wiki.title) %>
 </p>
 
 <p>
@@ -24,7 +24,7 @@
   <strong>Collaborators:</strong>
   <% if @wiki.collaborators.count != 0 %>
     <% @wiki.collaborators.each do |user| %>
-      <p>Name: <% user.username %> Email <% user.username %></p>
+      <p>Name: <%= user.find_by_username %> Email <%= user.find_by_email %></p>
     <% end %>
   <% else %>
     <p>There are currently no collaborators working on this wiki!</p>

@@ -26,6 +26,7 @@ class WikisController < ApplicationController
   def create
     @wiki = current_user.wikis.new(wiki_params)
     @wiki.update_attribute(:author, current_user.username)
+    @wiki.update_attribute(:user_id, current_user.id)
 
     respond_to do |format|
       if @wiki.save
@@ -41,7 +42,17 @@ class WikisController < ApplicationController
   # PATCH/PUT /wikis/1
   # PATCH/PUT /wikis/1.json
   def update
+    
     authorize @wiki
+    @wiki.collaborators.clear
+    params['wiki']['collaborators'].each do |uid|
+      if uid != ""
+        @wiki.collaborators.new(wiki_id: @wiki.id, user_id: uid.to_i)
+        @wiki.collaborators.last.save
+        puts @wiki.collaborators
+      end
+    end
+    
     respond_to do |format|
       if @wiki.update(wiki_params)
         format.html { redirect_to @wiki, notice: 'Wiki was successfully updated.' }
